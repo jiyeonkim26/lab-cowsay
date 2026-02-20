@@ -3,6 +3,10 @@
 ![](https://github.com/mikeizbicki/lab-cowsay/workflows/flake8/badge.svg)&nbsp;
 ![](https://github.com/mikeizbicki/lab-cowsay/workflows/command_line/badge.svg)&nbsp;
 
+**About:**
+This lab will have you practice installing python libraries and running *linters*.
+You will need to understand this material to get the github actions to pass on your markdown compiler homework.
+
 ## Part 0: setup
 
 For this lab you will need to make a copy of this repo on github.
@@ -38,11 +42,67 @@ $ python3 cowsay/__main__.py 'hello world'
 ```
 It's a bit cumbersome to always have to type out `python3 cowsay/__main__.py` whenever we want the cow to say something.
 So python gives is a tool called `pip` that allows us to *install* packages into an easier-to-use form.
-If you run the command
+Try running the command
 ```
 $ pip3 install .
 ```
-then this will give your terminal the `cowsay` command:
+
+> **NOTE:**
+> Depending on your computer's configuration,
+> you might get a scary error message that looks something like
+> ```
+> error: externally-managed-environment
+>
+> × This environment is externally managed
+> ╰─> To install Python packages system-wide, try apt install
+>     python3-xyz, where xyz is the package you are trying to
+>     install.
+>
+>     If you wish to install a non-Debian-packaged Python package,
+>     create a virtual environment using python3 -m venv path/to/venv.
+>     Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+>     sure you have python3-full installed.
+>
+>     If you wish to install a non-Debian packaged Python application,
+>     it may be easiest to use pipx install xyz, which will manage a
+>     virtual environment for you. Make sure you have pipx installed.
+>
+>     See /usr/share/doc/python3.12/README.venv for more information.
+> note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+> hint: See PEP 668 for the detailed specification.
+> ```
+> Python recently made the install procedure a bit more complicated in order to prevent something called [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell).
+> Unfortunately, this makes setup harder for new programmers.
+>
+> To fix the issue, you have to create a `venv`.
+> (The first "v" standands for "virtual" and you will hear people pronounce `venv` as either "virtual environments" or just "venvs".)
+> A `venv` is a project-specific installation point,
+> and it allows every project to have its own libraries installed.
+>
+> Setup a venv for this cowsay project by running the following command:
+> ```
+> $ python3 -m venv venv
+> ```
+> Notice that this creates a new `venv` folder in your working directory.
+> Then *activate* the venv with the command
+> ```
+> $ source venv/bin/activate
+> ```
+> You should see your prompt change to include the string `(venv)` somewhere inside of it.
+>
+> Now you should be able to run the install command without any error:
+> ```
+> $ pip3 install .
+> ```
+>
+> When working with python projects, you only run the `python3 -m venv venv` command once.
+> But you have to run the `source venv/bin/activate` every time you close and reopen VSCode.
+>
+> Every programming language has problems with managing installed libraries, but python is particularly notorious for having lots of difficulties.
+>
+> <img src=img/money.jpg width=300px>
+
+After you have successfully installed your project, you can use the `cowsay` command in the shell:
 ```
 $ cowsay 'moo'
  _____
@@ -83,9 +143,9 @@ $ pip3 install yt-dlp
 Notice that if we put a *package name* after the `pip3 install` command, we do not have to clone it;
 pip will do all that work for us automatically.
 
-Now you should be able to run `yt-dlp` whenever you want in your terminal to download fun videos
+Now you should be able to run `yt-dlp` whenever you want in your terminal to download fun videos and watch them without ads.
 ```
-$ yt-dlp
+$ yt-dlp 'https://www.youtube.com/watch?v=XfELJU1mRMg'
 ```
 
 > **Fun Aside:**
@@ -99,6 +159,8 @@ The `command_line` github actions is failing for this repo because the action tr
 Follow the instructions in the `.github/workflows/command_line.yaml` so that the action passes.
 
 ## Part 2: PEP8 and flake8
+
+<img src=img/guido.png width=300px>
 
 *Python Enhancement Proposals* (PEPs) are the system for adding new features to python.
 The most famous PEP is [PEP8](https://peps.python.org/pep-0008/),
