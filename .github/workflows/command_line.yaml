@@ -15,9 +15,9 @@ jobs:
         with:
           python-version: ${{matrix.python}}
       - name: Activate venv
-        run: source venv/bin/activate
+        uses: source venv/bin/activate
       - name: Install cowsay
-        run: pip3 install .
+        uses: pip3 install .
       - name: Run tests
         run: |
           # everything that we put in here is a terminal command
